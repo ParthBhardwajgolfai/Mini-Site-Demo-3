@@ -1,19 +1,7 @@
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/Reveal';
+import { partnerLogoByName } from '@/data/partners';
 import { partners } from '@/data/tournament';
-
-// Shared with the header's rotating partner display. Text remains as a
-// considered fallback until an official brand asset is supplied.
-const partnerLogos: Record<string, string> = {
-  'DP World': '/assets/partners/dpworld.png',
-  PGTI: '/assets/partners/pgti.png',
-  'IndusInd Bank': '/assets/partners/indusind.png',
-  Amul: '/assets/partners/amul.webp',
-  Campa: '/assets/partners/campa.png',
-  'Victorious Choice': '/assets/partners/victoriouschoice.png',
-  'Electro+': '/assets/partners/electroplus.png',
-  'Golf Plus Monthly': '/assets/partners/golfplus.png',
-};
 
 export default function Partners() {
   return (
@@ -37,7 +25,7 @@ export default function Partners() {
             <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.38)_1px,transparent_0)] [background-size:18px_18px]" />
             <div className="relative text-[10px] font-bold uppercase tracking-[0.3em] text-gold-soft">Title Partner</div>
             <div className="relative mx-auto mt-7 flex h-28 w-40 items-center justify-center border border-white/15 bg-white/10 p-3 shadow-[0_18px_45px_rgba(0,0,0,0.2)] lg:h-32 lg:w-48">
-              <img src={partnerLogos['DP World']} alt="DP World" className="h-full w-full object-contain" />
+              <img src={partnerLogoByName['DP World']} alt="DP World" className="h-full w-full object-contain" />
             </div>
             <p className="relative mx-auto mt-7 max-w-lg text-sm leading-relaxed text-white/70">
               {partners.title.role}. A global leader in smart logistics, DP World’s partnership has
@@ -57,9 +45,9 @@ export default function Partners() {
             {partners.official.map((p, i) => (
               <Reveal key={p.name} delay={i * 80} className="bg-surface">
                 <div className="group flex min-h-64 flex-col items-center justify-center px-8 py-12 text-center transition-colors hover:bg-surface-2/60">
-                  {partnerLogos[p.name] ? (
+                  {partnerLogoByName[p.name] ? (
                     <div className="flex h-28 w-full max-w-[16rem] items-center justify-center transition-transform duration-500 group-hover:scale-[1.03]">
-                      <img src={partnerLogos[p.name]} alt={p.name} className="max-h-full max-w-full object-contain" />
+                      <img src={partnerLogoByName[p.name]} alt={p.name} className="max-h-full max-w-full object-contain" />
                     </div>
                   ) : (
                     <div className="font-serif text-3xl font-light tracking-wide lg:text-4xl">{p.name}</div>
@@ -80,11 +68,11 @@ export default function Partners() {
           </Reveal>
           <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
             {partners.supporting.map((p, i) => (
-              <Reveal key={p.name} delay={i * 60} className="bg-surface">
+              <Reveal key={p.name} delay={i * 60} className="bg-surface last:col-span-2 lg:last:col-span-1">
                 <div className="group flex h-full min-h-48 flex-col items-center justify-center px-6 py-9 text-center transition-colors hover:bg-surface-2/60">
-                  {partnerLogos[p.name] ? (
+                  {partnerLogoByName[p.name] ? (
                     <div className="flex h-16 w-full max-w-[10rem] items-center justify-center transition-transform duration-500 group-hover:scale-[1.04]">
-                      <img src={partnerLogos[p.name]} alt={p.name} className="max-h-full max-w-full object-contain" />
+                      <img src={partnerLogoByName[p.name]} alt={p.name} className="max-h-full max-w-full object-contain" />
                     </div>
                   ) : (
                     <div className="font-serif text-xl font-light lg:text-2xl">{p.name}</div>

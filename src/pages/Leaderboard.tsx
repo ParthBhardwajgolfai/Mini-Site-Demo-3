@@ -3,27 +3,30 @@ import { ChevronDown, Minus, MoveDown, MoveUp, Search } from 'lucide-react';
 import Expand from '@/components/Expand';
 import PageHero from '@/components/PageHero';
 import PartnerMark from '@/components/PartnerMark';
+import PlayerAvatar from '@/components/PlayerAvatar';
 import Scorecard from '@/components/Scorecard';
-import { leaderboard, partners, tournament } from '@/data/tournament';
+import { leaderboard, partners, players, tournament } from '@/data/tournament';
 
 const roundLabels = ['Round 1', 'Round 2', 'Round 3', 'Final Round'];
 const roundDates = ['Tue 10 Feb', 'Wed 11 Feb', 'Thu 12 Feb', 'Fri 13 Feb'];
 
-const stripItems = [
-  `Champion — Honey Baisoya · −23`,
-  `${partners.title.name} · Title Partner`,
-  `${tournament.venue} · ${tournament.city}`,
-  'IndusInd Bank · Banking Partner',
-  `${tournament.purse} Prize Purse`,
-  'Amul · Official Partner',
-  '126 Players · 56 Made the Cut',
-  'Campa · Beverage Partner',
-  `Par ${tournament.par} · ${tournament.yardage}`,
-  'Victorious Choice · Lifestyle Partner',
-  tournament.format,
-  'Electro+ · Hydration Partner',
-  'Golf Plus Monthly · Media Partner',
+const stripItems: ({ label: string } | { partner: string })[] = [
+  { label: 'Champion — Honey Baisoya · −23' },
+  { partner: partners.title.name },
+  { label: `${tournament.venue} · ${tournament.city}` },
+  { partner: 'IndusInd Bank' },
+  { label: `${tournament.purse} Prize Purse` },
+  { partner: 'Amul' },
+  { label: '126 Players · 56 Made the Cut' },
+  { partner: 'Campa' },
+  { label: `Par ${tournament.par} · ${tournament.yardage}` },
+  { partner: 'Victorious Choice' },
+  { label: tournament.format },
+  { partner: 'Electro+' },
+  { partner: 'Golf Plus Monthly' },
 ];
+
+const playerImageById = new Map(players.map((player) => [player.id, player.image]));
 
 function posNum(pos: string): number {
   const n = parseInt(pos.replace(/[^\d]/g, ''), 10);
@@ -47,7 +50,7 @@ export default function Leaderboard() {
       if (before !== undefined) map.set(p.id, before - posNum(p.pos));
     });
     return map;
-  }, [round]);
+  }, [board, prevBoard]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -73,9 +76,9 @@ export default function Leaderboard() {
         <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap">
           {[0, 1].map((n) => (
             <div key={n} className="flex items-center gap-10 text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-soft">
-              {stripItems.map((t) => (
-                <span key={t} className="flex items-center gap-10">
-                  {t}
+              {stripItems.map((item) => (
+                <span key={'partner' in item ? item.partner : item.label} className="flex items-center gap-10">
+                  {'partner' in item ? <PartnerMark name={item.partner} size="sm" /> : item.label}
                   <span className="h-1 w-1 rounded-full bg-gold" />
                 </span>
               ))}
@@ -186,10 +189,15 @@ export default function Leaderboard() {
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <img src={p.flag} alt="" className="h-3.5 w-5 rounded-[1px] object-cover" loading="lazy" />
+                          <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-border bg-surface-2 ring-2 ring-background">
+                            <PlayerAvatar name={p.name} image={playerImageById.get(p.id) ?? null} className="h-full w-full" />
+                          </div>
                           <div>
                             <div className={`font-serif text-base leading-tight ${top ? 'font-medium' : ''}`}>{p.name}</div>
-                            <div className="text-[10px] uppercase tracking-[0.16em] text-ink-soft">{p.country}</div>
+                            <div className="mt-1 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                              <img src={p.flag} alt="" className="h-3 w-4 rounded-[1px] object-cover" loading="lazy" />
+                              {p.country}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -234,14 +242,19 @@ export default function Leaderboard() {
                   className="w-full p-4 text-left"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3.5">
+                    <div className="flex min-w-0 items-center gap-3.5">
                       <span className={`w-8 font-serif text-xl ${top ? 'font-medium text-fairway dark:text-gold-soft' : 'text-ink-soft'}`}>
                         {p.pos}
                       </span>
-                      <img src={p.flag} alt="" className="h-3 w-4 rounded-[1px] object-cover" loading="lazy" />
-                      <div>
+                      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-surface-2 ring-2 ring-background">
+                        <PlayerAvatar name={p.name} image={playerImageById.get(p.id) ?? null} className="h-full w-full" />
+                      </div>
+                      <div className="min-w-0">
                         <div className="font-serif text-base font-medium leading-tight">{p.name}</div>
-                        <div className="text-[9px] uppercase tracking-[0.16em] text-ink-soft">{p.country}</div>
+                        <div className="mt-1 flex items-center gap-1.5 text-[9px] uppercase tracking-[0.16em] text-ink-soft">
+                          <img src={p.flag} alt="" className="h-3 w-4 rounded-[1px] object-cover" loading="lazy" />
+                          {p.country}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2.5 text-right">

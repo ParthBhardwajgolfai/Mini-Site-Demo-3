@@ -80,7 +80,7 @@ export default function Home() {
           <div className="hero-fade mt-10 flex flex-wrap gap-4" style={{ '--d': '680ms' } as React.CSSProperties}>
             <Link
               to="/leaderboard"
-              className="group inline-flex items-center gap-3 bg-ivory px-7 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-fairway-deep transition-colors hover:bg-gold-soft"
+              className="group inline-flex items-center gap-3 bg-ivory px-7 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-fairway-deep transition-colors hover:bg-gold-soft dark:bg-gold-soft dark:text-fairway-deep dark:hover:bg-gold"
             >
               Final Leaderboard
               <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
@@ -468,7 +468,7 @@ export default function Home() {
             <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
               <div className="flex flex-col items-center justify-center bg-fairway-deep px-8 py-12 text-center text-ivory dark:text-foreground lg:py-16">
                 <div className="text-[9px] font-bold uppercase tracking-[0.28em] text-gold-soft">Title Partner</div>
-                <div className="mt-4 font-sans text-3xl font-bold uppercase tracking-[0.08em] lg:text-4xl">{partners.title.name}</div>
+                <PartnerMark name={partners.title.name} size="lg" className="mt-4" />
               </div>
               {partners.official.map((p) => (
                 <div key={p.name} className="flex flex-col items-center justify-center gap-2 bg-background px-8 py-12 text-center lg:py-16">
@@ -481,7 +481,7 @@ export default function Home() {
           <Reveal delay={160}>
             <div className="mt-px grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
               {partners.supporting.map((p) => (
-                <div key={p.name} className="flex flex-col items-center justify-center gap-1.5 bg-background px-6 py-8 text-center">
+                <div key={p.name} className="flex flex-col items-center justify-center gap-1.5 bg-background px-6 py-8 text-center last:col-span-2 lg:last:col-span-1">
                   <PartnerMark name={p.name} size="sm" />
                   <div className="text-[8px] font-bold uppercase tracking-[0.2em] text-ink-soft">{p.role}</div>
                 </div>
