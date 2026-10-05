@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { MoveUp, Search } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import PartnerMark from '@/components/PartnerMark';
+import SponsorRail from '@/components/SponsorRail';
 import { LeaderboardDesignSelector, LeaderboardRenderer, type LeaderboardDesignId } from '@/components/leaderboard';
 import { leaderboard, partners, tournament } from '@/data/tournament';
 
@@ -84,21 +85,7 @@ export default function Leaderboard() {
         </div>
       </div>
 
-      {/* Partner band */}
-      <div className="border-b border-border bg-surface-2/40 dark:bg-surface/40">
-        <div className="container-x flex flex-col items-center gap-4 py-6 lg:flex-row lg:justify-between lg:gap-10">
-          <span className="shrink-0 text-[9px] font-bold uppercase tracking-[0.28em] text-ink-soft">
-            Tournament Partners
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-            <PartnerMark name={partners.title.name} className="pr-2" />
-            <span className="hidden h-5 w-px bg-border lg:block" />
-            {[...partners.official, ...partners.supporting].map((p) => (
-              <PartnerMark key={p.name} name={p.name} size="sm" />
-            ))}
-          </div>
-        </div>
-      </div>
+      <SponsorRail />
 
       {/* Controls */}
       <div className="sticky top-16 z-30 border-b border-border bg-background/90 backdrop-blur-xl lg:top-20">

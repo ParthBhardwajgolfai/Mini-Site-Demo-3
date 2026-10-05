@@ -21,20 +21,14 @@ export default function PodiumLeaderboard({ entries, movement, openId, onToggle,
           {[podium[1], podium[0], podium[2]].filter((p): p is LeaderboardEntry => Boolean(p)).map((p) => {
             const isChampion = p.id === champion.id;
             const mv = movement.get(p.id);
-            const open = openId === p.id;
             return (
               <div
                 key={p.id}
-                className={`flex flex-col border bg-surface text-center transition-colors ${
+                className={`flex flex-col border bg-surface text-center ${
                   isChampion ? 'order-first border-gold/60 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.35)] sm:order-none lg:-translate-y-3' : ''
-                } ${open ? 'border-ink-soft/40' : 'hover:border-ink-soft/30'}`}
+                }`}
               >
-                <button
-                  onClick={() => onToggle(p.id)}
-                  aria-expanded={open}
-                  aria-label={`${p.name}, position ${p.pos}, score ${p.toParDisplay}. ${open ? 'Collapse' : 'Expand'} scorecard`}
-                  className="flex flex-1 flex-col items-center px-6 pb-5 pt-7"
-                >
+                <div className="flex flex-1 flex-col items-center px-6 pb-6 pt-7">
                   {isChampion && tournamentOver && (
                     <span className="eyebrow mb-3 text-[9px] tracking-[0.3em]">Champion</span>
                   )}
@@ -72,15 +66,7 @@ export default function PodiumLeaderboard({ entries, movement, openId, onToggle,
                       <div className={`mt-0.5 font-serif text-2xl font-semibold tabular-nums leading-none ${toParClass(p)}`}>{p.toParDisplay}</div>
                     </div>
                   </div>
-
-                  <span className="mt-4 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
-                    Scorecard
-                    <ExpandChevron open={open} size={12} />
-                  </span>
-                </button>
-                <Expand open={open}>
-                  <Scorecard playerId={p.id} playerName={p.name} position={p.pos} total={p.total} toParDisplay={p.toParDisplay} initialRound={round + 1} />
-                </Expand>
+                </div>
               </div>
             );
           })}

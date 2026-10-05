@@ -304,6 +304,19 @@
 .marquee-track {
   animation: marquee 40s linear infinite;
 }
+.sponsor-rail-track {
+  animation: marquee 48s linear infinite;
+  will-change: transform;
+}
+.sponsor-rail-track:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .sponsor-rail-track {
+    animation: none;
+  }
+}
 
 /* ── Scroll indicator ─────────────────────────────────────── */
 @keyframes scroll-hint {
