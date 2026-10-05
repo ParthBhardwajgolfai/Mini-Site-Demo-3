@@ -89,7 +89,7 @@ export default function Partners() {
       <section className="border-t border-border bg-surface-2/40 py-16 dark:bg-surface/40 lg:py-24">
         <div className="container-x grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-16">
           <Reveal>
-            <img src="/assets/logo.png" alt="DP World Players Championship emblem" className="h-24 w-24 rounded-full object-cover ring-1 ring-border lg:h-32 lg:w-32" />
+            <img src="/assets/golfai-logo.png" alt="GolfAI" className="h-14 w-auto object-contain lg:h-16" />
           </Reveal>
           <Reveal delay={100}>
             <p className="max-w-3xl font-serif text-xl font-light leading-relaxed lg:text-2xl">
